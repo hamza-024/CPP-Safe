@@ -1,6 +1,3 @@
-Here is the updated `grammar.md` file, now integrated with explanations for each section and accompanied by code examples:
-
----
 
 # Grammar Specification for C++Safe
 
