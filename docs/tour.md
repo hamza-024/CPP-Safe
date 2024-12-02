@@ -1,7 +1,3 @@
-Here’s a revised version of the `tour.md` with more spacing for better readability:
-
----
-
 # Tour of C++Safe
 
 Welcome to the **Tour of C++Safe**, where we explore the key features and enhancements of this modern C++ extension. C++Safe builds upon the strengths of C++ while addressing common pitfalls, offering a safer, cleaner, and more productive development experience.
