@@ -47,11 +47,12 @@ To explore C++Safe and see it in action:
 
 Explore the detailed guides and references for C++Safe:
 
+- **[Tour of C++Safe](docs/tour.md)**: A guided overview of the language and its key features.
 - **[Syntax Guide](docs/syntax.md)**: Comprehensive guide to the syntax improvements and enhancements in C++Safe.
 - **[Grammar Specification](docs/grammar.md)**: Formal definition of the language's syntax using EBNF.
 - **[Implementation Details](docs/implementation.md)**: Technical details on how the C++Safe compiler and runtime are implemented.
 - **[Roadmap](docs/roadmap.md)**: Planned features and future enhancements.
-- **[Tour of C++Safe](docs/tour.md)**: A guided overview of the language and its key features.
+
 
 ---
 
