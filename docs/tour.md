@@ -13,7 +13,9 @@ Welcome to the **Tour of C++Safe**, where we explore the key features and enhanc
 5. [Control Flow](#control-flow)  
 6. [Classes](#classes)  
 7. [Memory Safety](#memory-safety)  
-8. [Concurrency](#concurrency)
+8. [Concurrency](#concurrency)  
+9. [Slicing and Ranges](#slicing-and-ranges)  
+10. [Inline Testing](#inline-testing)
 
 ---
 
@@ -203,3 +205,40 @@ thread t = spawn {
 };
 t.join();
 ```
+The `canmore` tool is currently unavailable. However, I can provide the updated `tour.md` content directly here:
+
+---
+
+## Slicing and Ranges
+
+C++Safe introduces Python-inspired slicing for arrays and intuitive range iteration.
+
+### Example
+
+```cpp
+let nums = [1, 2, 3, 4, 5];
+let subArray = nums[1:4];  // Extracts elements from index 1 to 3
+
+for i in range(0, 10, 2) { // Start, end, step
+    print(i);
+}
+```
+
+---
+
+## Inline Testing
+
+C++Safe simplifies testing by allowing tests to be written inline with lightweight syntax.
+
+### Example
+
+```cpp
+test "addition works" {
+    assert(add(2, 3) == 5);
+}
+
+test "string concatenation" {
+    assert("Hello " + "World" == "Hello World");
+}
+```
+
