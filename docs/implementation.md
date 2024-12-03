@@ -290,5 +290,3 @@ test("String comparison", {
 - Results are outputted to the console for easy debugging.
 
 ---
-
-This implementation leverages the full power of the C++ ecosystem, using modern features like templates, smart pointers, and concurrency primitives to build a robust, extensible language extension.
