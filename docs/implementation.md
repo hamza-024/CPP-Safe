@@ -21,27 +21,26 @@ This document explains how **C++Safe** features are implemented as an extension 
 
 ## Program Structure
 
-### Implementation
-- **C++Safe** simplifies the program structure by redefining the `main` function syntax using macros.
-- This abstraction ensures compatibility with the standard C++ entry point while allowing cleaner syntax for developers.
+#### Implementation
+- **C++Safe** simplifies the program structure by using macros for cleaner function declarations while ensuring compatibility with standard C++ requirements.
 
 ```cpp
 #define func auto
-#define main void main_function()
 ```
 
-### Example
+#### Example
 ```cpp
-func main {
+#include <iostream>
+
+func main() -> int {
     std::cout << "Welcome to C++Safe!" << std::endl;
+    return 0;
 }
 ```
 
-### How It Works
-- The `main` function macro (`main_function`) ensures the program compiles and runs correctly with standard C++ compilers.
-- Developers get a cleaner, high-level syntax without disrupting the C++ runtime environment.
-
----
+#### How It Works
+- The `func` macro is used to simplify function declarations, aligning with modern C++ styles.
+- The `main()` function retains its standard signature (`int main()`), ensuring compliance with the C++ standard.
 
 ## Statements
 
