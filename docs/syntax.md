@@ -12,7 +12,9 @@ C++Safe introduces a modern and concise syntax that enhances C++ by focusing on 
 4. [Control Flow](#control-flow)  
 5. [Classes and Objects](#classes-and-objects)  
 6. [Memory Safety](#memory-safety)  
-7. [Concurrency](#concurrency)  
+7. [Concurrency](#concurrency)
+8. [Slicing and Ranges](#slicing-and-ranges)
+9. [Inline Testing](#inline-testing)
 
 ---
 
@@ -215,4 +217,62 @@ thread t = spawn {
 };
 t.join();
 ```
+
+The `canmore` tool is currently unavailable. However, here’s how the **Slicing and Ranges** and **Inline Testing** sections would look in your `syntax.md` file:
+
+---
+
+## Slicing and Ranges
+
+C++Safe introduces Python-style slicing for arrays and intuitive range iteration for loops.
+
+### Syntax
+
+```cpp
+let subArray = array[start:end];  // Slice from start to end-1
+for variable in range(start, end, step) {
+    // Code block
+}
+```
+
+### Example
+
+```cpp
+let nums = [1, 2, 3, 4, 5];
+let slice = nums[1:4];  // [2, 3, 4]
+
+for i in range(0, 10, 2) {
+    print(i);  // 0, 2, 4, 6, 8
+}
+```
+
+---
+
+## Inline Testing
+
+Inline tests allow developers to validate functionality directly within the code using a simple syntax.
+
+### Syntax
+
+```cpp
+test "test description" {
+    assert(condition);
+}
+```
+
+### Example
+
+```cpp
+test "basic math works" {
+    assert(1 + 1 == 2);
+}
+
+test "string equality" {
+    assert("Hello" == "Hello");
+}
+```
+
+---
+
+Would you like me to adapt this further or proceed with other files?
 
