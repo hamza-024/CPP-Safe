@@ -272,7 +272,5 @@ test "string equality" {
 }
 ```
 
----
 
-Would you like me to adapt this further or proceed with other files?
 
