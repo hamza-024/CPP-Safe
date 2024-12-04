@@ -185,8 +185,6 @@ thread t = spawn {
 };
 t.join();
 ```
-The `canmore` tool is currently unavailable. However, I can provide the updated `tour.md` content directly here:
-
 ---
 
 ## Slicing and Ranges
