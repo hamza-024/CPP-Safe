@@ -11,11 +11,10 @@ This document provides a formal grammar for the **C++Safe** programming language
 3. [Expressions](#expressions)
 4. [Functions](#functions)
 5. [Control Flow](#control-flow)
-6. [Classes](#classes)
-7. [Memory Safety](#memory-safety)
-8. [Concurrency](#concurrency)
-9. [Slicing and Ranges](#slicing-and-ranges)
-10. [Inline Testing](#inline-testing)
+6. [Memory Safety](#memory-safety)
+7. [Concurrency](#concurrency)
+8. [Slicing and Ranges](#slicing-and-ranges)
+9. [Inline Testing](#inline-testing)
 
 ---
 
@@ -103,16 +102,6 @@ ControlFlowStatement ::= ForLoop | WhileLoop
 ForLoop              ::= "for" Identifier "in" Range Block
 WhileLoop            ::= "while" Expression Block
 Range                ::= "range" "(" Expression "," Expression ("," Expression)? ")"
-```
-
----
-
-## Classes
-
-```ebnf
-ClassDeclaration ::= "class" Identifier "{" ClassBody "}"
-ClassBody        ::= (ClassVariable | FunctionDeclaration)*
-ClassVariable    ::= "let" Identifier ":" Type ";"
 ```
 
 ---
