@@ -179,9 +179,6 @@ thread t = spawn {
 };
 t.join();
 ```
-
-The `canmore` tool is currently unavailable. However, here’s how the **Slicing and Ranges** and **Inline Testing** sections would look in your `syntax.md` file:
-
 ---
 
 ## Slicing and Ranges
