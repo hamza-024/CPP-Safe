@@ -11,24 +11,23 @@ This document explains how **C++Safe** features are implemented as an extension 
 3. [Expressions](#expressions)
 4. [Functions](#functions)
 5. [Control Flow](#control-flow)
-6. [Classes](#classes)
-7. [Memory Safety](#memory-safety)
-8. [Concurrency](#concurrency)
-9. [Slicing and Ranges](#slicing-and-ranges)
-10. [Inline Testing](#inline-testing)
+6. [Memory Safety](#memory-safety)
+7. [Concurrency](#concurrency)
+8. [Slicing and Ranges](#slicing-and-ranges)
+9. [Inline Testing](#inline-testing)
 
 ---
 
 ## Program Structure
 
-#### Implementation
-- **C++Safe** simplifies the program structure by using macros for cleaner function declarations while ensuring compatibility with standard C++ requirements.
+### Implementation
+- Simplifies function declarations using macros while ensuring compatibility with C++ standards.
 
 ```cpp
 #define func auto
 ```
 
-#### Example
+### Example
 ```cpp
 #include <iostream>
 
@@ -38,15 +37,16 @@ func main() -> int {
 }
 ```
 
-#### How It Works
-- The `func` macro is used to simplify function declarations, aligning with modern C++ styles.
-- The `main()` function retains its standard signature (`int main()`), ensuring compliance with the C++ standard.
+### How It Works
+- The `func` macro replaces the `auto` keyword for concise function declarations.
+- The `main` function retains its standard signature, ensuring compatibility with the C++ standard.
+
+---
 
 ## Statements
 
 ### Implementation
-- Variable and constant declarations are simplified using macros.
-- These macros map directly to C++’s `auto` type inference system.
+- Provides concise macros for variable and constant declarations.
 
 ```cpp
 #define let auto
@@ -55,24 +55,31 @@ func main() -> int {
 
 ### Example
 ```cpp
-let x = 42;         // Variable with inferred type
-const_ pi = 3.1415; // Constant with inferred type
+let x = 42;
+const_ pi = 3.14159;
 ```
 
 ### How It Works
-- The `let` macro uses `auto` to infer types at compile time.
-- The `const_` macro enforces immutability while leveraging C++’s type system.
+- The `let` macro maps to `auto`, leveraging C++'s type inference capabilities.
+- The `const_` macro ensures immutability while retaining the benefits of type inference.
 
 ---
 
 ## Expressions
 
 ### Implementation
-- Expression statements like `print` are implemented using variadic macros.
-- This allows concatenation of multiple values and redirection to `std::cout`.
+- Introduces a macro for simplified output with variadic arguments.
 
 ```cpp
-#define print(...) (std::cout << ... << __VA_ARGS__) << std::endl
+#define print(...) (std::cout << format(__VA_ARGS__) << std::endl)
+
+// Helper function for variadic argument handling
+template <typename... Args>
+std::string format(Args... args) {
+    std::ostringstream oss;
+    (oss << ... << args);
+    return oss.str();
+}
 ```
 
 ### Example
@@ -81,16 +88,15 @@ print("Sum:", 3 + 5);
 ```
 
 ### How It Works
-- The macro uses C++ fold expressions (`...`) to handle multiple arguments.
-- Outputs are compatible with standard I/O streams.
+- The `print` macro uses a helper function (`format`) to concatenate variadic arguments.
+- Outputs are sent to `std::cout` and automatically terminated with a newline.
 
 ---
 
 ## Functions
 
 ### Implementation
-- Function definitions are abstracted using macros for a modern syntax.
-- The `func` macro aligns with C++’s type inference and return type declaration.
+- Simplifies function declarations and returns using macros.
 
 ```cpp
 #define func auto
@@ -105,125 +111,82 @@ func add(int a, int b) -> int {
 ```
 
 ### How It Works
-- The `func` macro provides a cleaner way to declare functions.
-- Standard C++ return types and function definitions ensure compatibility.
+- The `func` macro provides a cleaner and modern syntax for declaring functions.
+- The `ret` macro is shorthand for the `return` keyword, improving code readability.
 
 ---
 
 ## Control Flow
 
 ### Implementation
-- Conditional statements are simplified by wrapping C++ syntax with macros.
-- For loops leverage range-based iteration.
+- Simplifies loops with macros for range-based iteration.
 
 ```cpp
-#define if_ if
-#define else_ else
-
 #define for_in(var, range) for (auto var : range)
 ```
 
 ### Example
 ```cpp
-if_ (x > 0) {
-    print("x is positive");
-} else_ {
-    print("x is non-positive");
-}
-
 std::vector<int> nums = {1, 2, 3, 4, 5};
 for_in(num, nums) {
-    print(num);
+    std::cout << num << std::endl;
 }
 ```
 
 ### How It Works
-- The `if_` and `else_` macros directly map to native C++ constructs.
-- The `for_in` macro simplifies iteration over STL containers.
-
----
-
-## Classes
-
-### Implementation
-- Class definitions and member variables are streamlined using macros.
-
-```cpp
-#define class_ class
-#define let auto
-```
-
-### Example
-```cpp
-class_ Point {
-public:
-    let x, y;
-
-    func move(int dx, int dy) -> void {
-        x += dx;
-        y += dy;
-    }
-};
-```
-
-### How It Works
-- The `class_` macro maps to C++’s `class` keyword, and `let` is reused for variable declarations.
-- Member functions remain standard C++.
+- The `for_in` macro simplifies iterating over STL containers, reducing boilerplate code.
 
 ---
 
 ## Memory Safety
 
 ### Implementation
-- Memory safety is implemented using `std::shared_ptr` and templates.
+- Uses smart pointers with a simplified macro to ensure automatic memory management.
 
 ```cpp
-#define safe(type, value) std::make_shared<type>(value)
+#define safe(type, ...) std::make_shared<type>(__VA_ARGS__)
 ```
 
 ### Example
 ```cpp
-auto ptr = safe<int>(42);  // Creates a shared_ptr<int> with value 42
+auto ptr = safe(int, 42);
+auto arr = safe(std::vector<int>, std::initializer_list<int>{1, 2, 3});
 ```
 
 ### How It Works
-- The `safe` macro wraps `std::make_shared`, ensuring compatibility with C++’s smart pointer ecosystem.
+- The `safe` macro wraps `std::make_shared` for creating `std::shared_ptr` instances.
+- Memory is automatically managed, reducing the risk of memory leaks or dangling pointers.
 
 ---
 
 ## Concurrency
 
 ### Implementation
-- Asynchronous operations and threads are abstracted using macros and `std::async`.
+- Provides macros to simplify asynchronous tasks and threading.
 
 ```cpp
-#define async std::async
-#define await std::future
+#define async_task std::async
 #define spawn(block) std::thread([]() { block; })
 ```
 
 ### Example
 ```cpp
-auto fetchData = async(std::launch::async, []() {
-    return "Data fetched!";
-});
-print(await(fetchData).get());
-
+auto result = async_task(std::launch::async, fetchData);
 spawn({
-    print("Running in a separate thread!");
+    std::cout << "Running in a separate thread!";
 }).join();
 ```
 
 ### How It Works
-- `async` and `await` map directly to `std::async` and `std::future`.
-- `spawn` simplifies thread creation and ensures compatibility with `std::thread`.
+- The `async_task` macro maps to `std::async` for running tasks asynchronously.
+- The `spawn` macro simplifies thread creation and execution, improving readability.
 
 ---
 
 ## Slicing and Ranges
 
 ### Implementation
-- Slicing and range-based iteration are implemented using templates and utility functions.
+- Adds slicing and custom range macros for iteration.
 
 ```cpp
 template <typename T>
@@ -242,23 +205,23 @@ std::vector<T> slice(const std::vector<T>& vec, size_t start, size_t end) {
 ### Example
 ```cpp
 std::vector<int> nums = {1, 2, 3, 4, 5};
-auto subArray = slice(nums, 1, 4);  // [2, 3, 4]
+auto subArray = slice(nums, 1, 4);
 
-for_in(i, range(0, 10, 2)) {
-    print(i);  // 0, 2, 4, 6, 8
+for (auto num : range(0, 10, 2)) {
+    std::cout << num << " ";
 }
 ```
 
 ### How It Works
 - The `slice` function extracts a subarray from a vector.
-- The `range` macro generates ranges for iteration.
+- The `range` macro generates a sequence of integers for iteration.
 
 ---
 
 ## Inline Testing
 
 ### Implementation
-- Testing is implemented using macros for lightweight assertion and test descriptions.
+- Simplifies testing with macros for test descriptions and assertions.
 
 ```cpp
 #define test(desc, block) \
@@ -285,7 +248,6 @@ test("String comparison", {
 ```
 
 ### How It Works
-- `test` and `assert` macros integrate seamlessly into standard C++ projects.
-- Results are outputted to the console for easy debugging.
-
----
+- The `test` macro outputs the test description and runs the associated code block.
+- The `assert` macro checks conditions and outputs a success or failure message.
+```
