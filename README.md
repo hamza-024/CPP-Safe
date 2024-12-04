@@ -86,6 +86,6 @@ The `examples` folder contains C++ files showcasing the features of **C++Safe**.
    ./<output_name>
    ```
 
-For more details, check out the [examples/README.md](examples/README.md).
+For more details, check out the [examples/ReadME.md](examples/ReadME.md).
 
 ---
