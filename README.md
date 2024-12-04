@@ -39,7 +39,7 @@ To explore C++Safe and see it in action:
    Follow the instructions in [docs/implementation.md](docs/implementation.md) to set up and build C++Safe features within your environment.
 
 3. **Run an Example**:
-   Browse through [examples/README.md](examples/README.md) for runnable code examples demonstrating key features of C++Safe.
+   Browse through [examples/ReadME.md](examples/ReadME.md) for runnable code examples demonstrating key features of C++Safe.
 
 ---
 
