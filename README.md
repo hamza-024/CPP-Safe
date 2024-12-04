@@ -21,9 +21,7 @@ C++Safe is a modern extension of C++ designed to improve safety, simplify syntax
   - [Implementation Details](docs/implementation.md)
   - [Roadmap](docs/roadmap.md)
   - [Tour of C++Safe](docs/tour.md)
-- [Code Examples](#code-examples)
-- [Contributing](#contributing)
-- [License](#license)
+- [Examples](#examples)
 
 ---
 
@@ -41,7 +39,7 @@ To explore C++Safe and see it in action:
    Follow the instructions in [docs/implementation.md](docs/implementation.md) to set up and build C++Safe features within your environment.
 
 3. **Run an Example**:
-   Browse through [docs/tour.md](docs/tour.md) for a quick walkthrough and sample programs.
+   Browse through [examples/README.md](examples/README.md) for runnable code examples demonstrating key features of C++Safe.
 
 ---
 
@@ -57,28 +55,37 @@ Explore the detailed guides and references for C++Safe:
 
 ---
 
-## Code Examples
+## Examples
 
-Check out [docs/examples.md](docs/examples.md) for runnable examples demonstrating:
-- Simplified syntax and expressions
-- Memory safety with `safe` pointers
-- Concurrent programming with `async_task` and `spawn`
-- Data manipulation using slicing and ranges
-- Inline testing with `test` and `assert`
+The `examples` folder contains C++ files showcasing the features of **C++Safe**. Each file is a runnable program demonstrating a specific feature, such as:
+
+- **Program Structure**: Simplified function declarations.
+- **Statements**: Concise variable and constant declarations.
+- **Expressions**: Streamlined output with `print`.
+- **Functions**: Cleaner function definitions with `func` and `ret`.
+- **Control Flow**: Enhanced loop syntax.
+- **Memory Safety**: Automatic memory management with `safe`.
+- **Concurrency**: Simplified asynchronous programming with `async_task` and `spawn`.
+- **Slicing and Ranges**: Data manipulation with Python-like slicing and custom ranges.
+- **Inline Testing**: Lightweight tests with `test` and `assert`.
+
+### How to Compile and Run
+
+1. Navigate to the `examples` folder:
+   ```bash
+   cd examples
+   ```
+
+2. Compile a file using `g++`:
+   ```bash
+   g++ -o <output_name> <file_name>.cpp
+   ```
+
+3. Run the compiled program:
+   ```bash
+   ./<output_name>
+   ```
+
+For more details, check out the [examples/README.md](examples/README.md).
 
 ---
-
-## Contributing
-
-Contributions are welcome! If you’d like to contribute to C++Safe, please follow these steps:
-
-1. Fork the repository.
-2. Create a branch for your feature or bug fix.
-3. Submit a pull request with a clear description of your changes.
-
----
-
-## License
-
-C++Safe is licensed under the [MIT License](LICENSE).
-```
