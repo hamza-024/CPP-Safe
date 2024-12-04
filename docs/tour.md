@@ -11,11 +11,10 @@ Welcome to the **Tour of C++Safe**, where we explore the key features and enhanc
 3. [Expressions](#expressions)  
 4. [Functions](#functions)  
 5. [Control Flow](#control-flow)  
-6. [Classes](#classes)  
-7. [Memory Safety](#memory-safety)  
-8. [Concurrency](#concurrency)  
-9. [Slicing and Ranges](#slicing-and-ranges)  
-10. [Inline Testing](#inline-testing)
+6. [Memory Safety](#memory-safety)  
+7. [Concurrency](#concurrency)  
+8. [Slicing and Ranges](#slicing-and-ranges)  
+9. [Inline Testing](#inline-testing)
 
 ---
 
@@ -146,25 +145,6 @@ while x > 0 {
 }
 ```
 
----
-
-## Classes
-
-Class definitions in C++Safe combine declaration and implementation into a single construct, enhancing encapsulation and reducing complexity.
-
-### Example
-
-```cpp
-class Point {
-    let x: int;
-    let y: int;
-
-    func move(dx: int, dy: int): void {
-        x += dx;
-        y += dy;
-    }
-}
-```
 
 ---
 
