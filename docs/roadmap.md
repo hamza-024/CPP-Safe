@@ -1,6 +1,6 @@
 # C++Safe Roadmap
 
-This roadmap outlines the planned features and potential future enhancements for **C++Safe**. Our goal is to continue simplifying C++ while maintaining its power and flexibility.
+This roadmap outlines the planned features and potential future enhancements for **C++Safe** to continue simplifying C++ while maintaining its power and flexibility.
 
 ---
 
