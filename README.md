@@ -6,7 +6,7 @@ C++Safe is a modern extension of C++ designed to improve safety, simplify syntax
 
 ## Features
 - **Automated Memory Safety**: Say goodbye to raw pointers. With `safe`, memory management is simple and secure.
-- **Simplified Syntax**: Write more concise and readable code with features like `print` for streamlined output.
+- **Simplified Syntax**: Write more concise and readable code with features like `print` for output.
 - **Streamlined Concurrency**: Leverage modern programming paradigms with macros like `async_task` and `spawn` for asynchronous programming and threading.
 - **Powerful Slicing and Ranges**: Simplify data manipulation and iteration with Python-like slicing and custom ranges.
 - **Inline Testing**: Add lightweight, inline tests directly into your code for improved debugging and validation.
