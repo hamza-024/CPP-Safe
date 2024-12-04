@@ -10,11 +10,10 @@ C++Safe introduces a modern and concise syntax that enhances C++ by focusing on 
 2. [Variables and Constants](#variables-and-constants)  
 3. [Functions](#functions)  
 4. [Control Flow](#control-flow)  
-5. [Classes and Objects](#classes-and-objects)  
-6. [Memory Safety](#memory-safety)  
-7. [Concurrency](#concurrency)
-8. [Slicing and Ranges](#slicing-and-ranges)
-9. [Inline Testing](#inline-testing)
+5. [Memory Safety](#memory-safety)  
+6. [Concurrency](#concurrency)
+7. [Slicing and Ranges](#slicing-and-ranges)
+8. [Inline Testing](#inline-testing)
 
 ---
 
@@ -111,13 +110,6 @@ for variable in range(start, end) {
 }
 ```
 
-#### While Loops
-```cpp
-while condition {
-    // Code block
-}
-```
-
 #### Examples
 ```cpp
 for i in range(1, 5) {
@@ -126,36 +118,6 @@ for i in range(1, 5) {
 
 while x > 0 {
     x -= 1;
-}
-```
-
----
-
-## Classes and Objects
-
-C++Safe combines class declaration and implementation, reducing redundancy.
-
-#### Syntax
-```cpp
-class ClassName {
-    let variableName: Type;
-
-    func methodName(parameters): ReturnType {
-        // Method body
-    }
-}
-```
-
-#### Example
-```cpp
-class Point {
-    let x: int;
-    let y: int;
-
-    func move(dx: int, dy: int): void {
-        x += dx;
-        y += dy;
-    }
 }
 ```
 
