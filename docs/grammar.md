@@ -6,6 +6,7 @@ This document provides a formal grammar for the **C++Safe** programming language
 
 ## Table of Contents
 
+### Part 1: Core Features
 1. [Program Structure](#program-structure)
 2. [Statements](#statements)
 3. [Expressions](#expressions)
@@ -16,9 +17,18 @@ This document provides a formal grammar for the **C++Safe** programming language
 8. [Slicing and Ranges](#slicing-and-ranges)
 9. [Inline Testing](#inline-testing)
 
+### Part 2: Advanced Features
+10. [Pattern Matching](#pattern-matching)
+11. [Error Handling](#error-handling)
+12. [Named Parameters](#named-parameters)
+13. [Coroutines](#coroutines)
+14. [Modules](#modules)
+
 ---
 
-## Program Structure
+## Part 1: Core Features
+
+### Program Structure
 
 C++Safe improves the program structure by focusing on readability and eliminating boilerplate. It allows a cleaner top-level organization without requiring extensive use of `#include` directives or verbose main function syntax.
 
@@ -28,24 +38,24 @@ Statement       ::= VariableDeclaration
                  | FunctionDeclaration
                  | ControlFlowStatement
                  | ExpressionStatement
-                 | ClassDeclaration
                  | MemorySafetyStatement
+                 | TestStatement
 ```
 
 ---
 
-## Statements
+### Statements
 
 C++Safe introduces a more intuitive and concise syntax for variable declarations and expression-based statements.
 
-### Variable Declarations
+#### Variable Declarations
 
 ```ebnf
 VariableDeclaration ::= "let" Identifier (":" Type)? "=" Expression ";"
 ConstantDeclaration ::= "const" Identifier (":" Type)? "=" Expression ";"
 ```
 
-### Expressions as Statements
+#### Expressions as Statements
 
 ```ebnf
 ExpressionStatement ::= Expression ";"
@@ -53,9 +63,9 @@ ExpressionStatement ::= Expression ";"
 
 ---
 
-## Expressions
+### Expressions
 
-### Literals
+#### Literals
 
 ```ebnf
 Literal             ::= IntegerLiteral
@@ -67,7 +77,7 @@ StringLiteral       ::= '"' (Character)* '"'
 Digit               ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ```
 
-### Function Calls
+#### Function Calls
 
 ```ebnf
 FunctionCall        ::= Identifier "(" (Argument ("," Argument)*)? ")"
@@ -76,7 +86,7 @@ Argument            ::= Expression
 
 ---
 
-## Functions
+### Functions
 
 ```ebnf
 FunctionDeclaration ::= "func" Identifier "(" (Parameter ("," Parameter)*)? ")" (":" Type)? Block
@@ -86,16 +96,16 @@ Block               ::= "{" Statement+ "}"
 
 ---
 
-## Control Flow
+### Control Flow
 
-### If-Else Statements
+#### If-Else Statements
 
 ```ebnf
 ControlFlowStatement ::= IfStatement
 IfStatement          ::= "if" Expression Block ("else" Block)?
 ```
 
-### Loops
+#### Loops
 
 ```ebnf
 ControlFlowStatement ::= ForLoop | WhileLoop
@@ -106,7 +116,7 @@ Range                ::= "range" "(" Expression "," Expression ("," Expression)?
 
 ---
 
-## Memory Safety
+### Memory Safety
 
 ```ebnf
 MemorySafetyStatement ::= "let" Identifier "=" "safe" "<" Type ">" "(" Expression? ")" ";"
@@ -114,9 +124,9 @@ MemorySafetyStatement ::= "let" Identifier "=" "safe" "<" Type ">" "(" Expressio
 
 ---
 
-## Concurrency
+### Concurrency
 
-### Async and Await
+#### Async and Await
 
 ```ebnf
 ConcurrencyStatement ::= AsyncFunction
@@ -124,7 +134,7 @@ AsyncFunction        ::= "async" Identifier "(" ")" Block
 AwaitExpression      ::= "await" Identifier "(" ")"
 ```
 
-### Threads
+#### Threads
 
 ```ebnf
 ConcurrencyStatement ::= "thread" Identifier "=" "spawn" Block
@@ -132,78 +142,119 @@ ConcurrencyStatement ::= "thread" Identifier "=" "spawn" Block
 
 ---
 
-## Slicing and Ranges
+### Slicing and Ranges
 
-### Syntax
-
-- Array slicing uses Python-like `[start:end]` notation.
-- Loops support the `range(start, end, step)` function for iteration.
+#### Syntax
 
 ```ebnf
 ArraySlice ::= Identifier "[" Integer ":" Integer "]"
 Range      ::= "range" "(" Integer "," Integer ("," Integer)? ")"
 ```
 
-### Example
-
-```cpp
-let nums = [1, 2, 3, 4, 5];
-let subArray = nums[1:4];  // Extracts elements from index 1 to 3
-
-for i in range(0, 10, 2) { // Start, end, step
-    print(i);
-}
-```
-
 ---
 
-## Inline Testing
+### Inline Testing
 
-### Syntax
-
-Tests are declared with the `test` keyword, followed by a string description and a block of assertions.
+#### Syntax
 
 ```ebnf
 TestStatement ::= "test" StringLiteral Block
 Assertion     ::= "assert" "(" Expression ")"
 ```
 
-### Example
+---
 
-```cpp
-test "basic addition" {
-    assert(add(2, 2) == 4);
-}
+## Part 2: Advanced Features
 
-test "string comparison" {
-    assert("Hello" == "Hello");
-}
+### Pattern Matching
+
+#### Syntax
+
+```ebnf
+PatternMatch       ::= "match" "(" Expression ")" "{" PatternCase+ "default_case" Block "}"
+PatternCase        ::= "case" "(" PatternExpression ")" Block
+PatternExpression  ::= Literal
+                      | Type "(" Identifier ")"
+                      | Wildcard
+Wildcard           ::= "_"
+```
+
+---
+
+### Error Handling
+
+#### Syntax
+
+```ebnf
+ResultType       ::= "Result" "<" SuccessType "," ErrorType ">"
+MatchResult      ::= "match" "(" Identifier ")" "{" ResultCase+ "}"
+ResultCase       ::= "case" "(" SuccessType Identifier ")" Block
+                    | "case" "(" ErrorType Identifier ")" Block
+```
+
+---
+
+### Named Parameters
+
+#### Syntax
+
+```ebnf
+NamedParameterDeclaration ::= Identifier ":" Type
+NamedParameterCall        ::= Identifier "=" Expression
+```
+
+---
+
+### Coroutines
+
+#### Syntax
+
+```ebnf
+CoroutineDeclaration ::= "func" Identifier "(" ParameterList ")" "->" "coroutine" "<" Type ">" Block
+YieldStatement       ::= "yield" Expression ";"
+```
+
+---
+
+### Modules
+
+#### Syntax
+
+```ebnf
+ModuleDeclaration ::= "export" "module" Identifier ";"
+ImportStatement   ::= "import" Identifier ";"
 ```
 
 ---
 
 ## Example Program
 
-Here is a small example program demonstrating the C++Safe syntax and grammar:
+This program demonstrates a combination of **Part 1** and **Part 2** features.
 
 ```cpp
+export module math;
+
+export func add(a: int, b: int): int {
+    return a + b;
+}
+
+import math;
+
 func main(): void {
-    let x = 10;
-    let y: float = 20.5;
-    print("Sum:", x + y);
+    let result = add(3, 5);
+    print("Sum:", result);
 
-    for i in range(1, 5) {
-        print("Iteration:", i);
+    match(result) {
+        case (8) {
+            print("Matched: 8!");
+        }
+        default_case {
+            print("Matched: something else.");
+        }
     }
 
-    if x > 5 {
-        print("x is greater than 5");
-    } else {
-        print("x is 5 or less");
+    test "Addition Test" {
+        assert(add(2, 3) == 5);
     }
-
-    let result = safe<int>(42);
-    print("Safe value:", result);
 }
 ```
-
