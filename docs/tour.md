@@ -4,6 +4,7 @@ Welcome to the **Tour of C++Safe**, where we explore the key features and enhanc
 
 ---
 
+# Part 1: Simple Features (Implemented)
 ## Table of Contents
 
 1. [Program Structure](#program-structure)  
@@ -246,3 +247,186 @@ test "concatenation" {
 Test passed: addition works
 Test passed: concatenation
 ```
+---
+
+
+# Part 2: Advanced Features in C++Safe (Not Yet Implemented)
+In **Part 2**, we explore advanced features of C++Safe that address key challenges in C++ development. These solutions aim to simplify code, reduce errors, and enhance productivity by modernizing the language.
+
+## Table of Contents
+
+1. [Pattern Matching](#pattern-matching)  
+2. [Error Handling](#error-handling)  
+3. [Named Parameters](#named-parameters)  
+4. [Coroutines](#coroutines)  
+5. [Modules](#modules)  
+
+---
+
+## Pattern Matching
+
+### Problem in C++
+C++ lacks native pattern matching, forcing developers to use verbose and error-prone constructs like nested `if-else` or `switch` statements. These are particularly cumbersome when working with `std::variant` or polymorphic types, where you need to manually extract and cast values.
+
+### Solution in C++Safe
+C++Safe introduces concise and type-safe pattern matching to simplify conditional logic. The `match` construct allows developers to define cases for specific values or types, including a `default_case` for unmatched conditions.
+
+### Example in C++Safe
+```cpp
+match(value) {
+    case (42) {
+        print("Matched: The answer is 42!");
+    }
+    case ("Hello") {
+        print("Matched: Greeting received!");
+    }
+    default_case {
+        print("Matched: Something else.");
+    }
+}
+```
+
+### How It Works
+- `match` evaluates a value or type at runtime and executes the corresponding case block.
+- Type safety ensures that the matched value conforms to the expected type in each case.
+- The `default_case` block handles unmatched values, ensuring comprehensive coverage.
+
+### Improvements
+- Reduces verbosity compared to nested `if-else` or `switch`.
+- Enhances readability and maintainability, especially with complex data types like `std::variant`.
+- Type safety eliminates runtime errors caused by invalid type casts.
+
+---
+
+## Error Handling
+
+### Problem in C++
+Error handling in C++ relies heavily on exceptions or error codes. Exceptions introduce performance overhead and can be unpredictable in resource-constrained environments. Error codes, while predictable, often lead to repetitive boilerplate and missed error checks.
+
+### Solution in C++Safe
+C++Safe adopts a `Result`-like pattern, inspired by Rust, to handle errors without exceptions. A `Result` type encapsulates either a success value or an error value, making it easy to propagate and check errors.
+
+### Example in C++Safe
+```cpp
+let result = riskyOperation(true);
+
+match(result) {
+    case (int success) {
+        print("Success:", success);
+    }
+    case (string error) {
+        print("Error:", error);
+    }
+}
+```
+
+### How It Works
+- `Result` is a type-safe union of success and error states.
+- `match` evaluates the `Result` and executes the corresponding case block.
+- This approach eliminates the need for `try-catch` blocks or manual error code checks.
+
+### Improvements
+- Removes the performance and complexity of exceptions.
+- Ensures errors are explicitly handled, reducing bugs from missed checks.
+- Simplifies error propagation with clean syntax and minimal boilerplate.
+
+---
+
+## Named Parameters
+
+### Problem in C++
+C++ functions with multiple parameters can become ambiguous, especially when many arguments have the same type. This makes function calls error-prone and hard to read.
+
+### Solution in C++Safe
+Named parameters improve function call readability by explicitly associating values with parameter names. This eliminates ambiguity and reduces errors caused by misordered arguments.
+
+### Example in C++Safe
+```cpp
+func configure(height: int, width: int, color: string): void {
+    print("Height:", height, "Width:", width, "Color:", color);
+}
+
+configure(height = 100, width = 200, color = "blue");
+```
+
+### How It Works
+- Named parameters associate each argument with its parameter name in the function signature.
+- The syntax ensures arguments are passed in a clear and explicit manner, regardless of their order.
+
+### Improvements
+- Enhances code clarity and maintainability, especially for functions with many parameters.
+- Reduces errors caused by incorrect argument order.
+- Simplifies API design by encouraging self-documenting function calls.
+
+---
+
+## Coroutines
+
+### Problem in C++
+C++ coroutines are powerful but complex to implement. They require significant boilerplate, making them inaccessible for many developers. This limits their adoption for asynchronous workflows.
+
+### Solution in C++Safe
+C++Safe abstracts coroutines with simple syntax using `func` and `yield`. This allows developers to focus on logic rather than coroutine mechanics, making asynchronous workflows easier to manage.
+
+### Example in C++Safe
+```cpp
+func countUpTo(max: int): coroutine<int> {
+    for (let i = 0; i <= max; ++i) {
+        yield i;
+    }
+}
+
+for i in countUpTo(5) {
+    print(i);
+}
+```
+
+### How It Works
+- `coroutine<int>` defines a generator that yields values lazily.
+- The `yield` statement pauses execution and returns a value to the caller.
+- The coroutine resumes execution from where it left off on the next iteration.
+
+### Improvements
+- Simplifies coroutine implementation with high-level abstractions.
+- Reduces boilerplate, making coroutines accessible to more developers.
+- Improves performance by allowing lazy computation and non-blocking workflows.
+
+---
+
+## Modules
+
+### Problem in C++
+The traditional `#include` directive is prone to errors like circular dependencies and redundant imports. This can lead to bloated code, slower compile times, and poor project organization.
+
+### Solution in C++Safe
+C++Safe introduces a modern module system to replace `#include`. Modules improve project structure, reduce compile times, and eliminate common issues with header files.
+
+### Example in C++Safe
+
+**math.module.cpp**:
+```cpp
+export module math;
+
+export func add(a: int, b: int): int {
+    return a + b;
+}
+```
+
+**main.cpp**:
+```cpp
+import math;
+
+print(add(3, 5));
+```
+
+### How It Works
+- `export module` defines a module that encapsulates related code.
+- `import` loads the module in other files without needing header files.
+- Modules ensure only the necessary symbols are exposed, improving encapsulation.
+
+### Improvements
+- Eliminates redundancy and inefficiencies associated with `#include`.
+- Reduces compile times significantly for large projects.
+- Encourages better project organization and modular design.
+
+---
