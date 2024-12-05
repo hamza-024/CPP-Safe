@@ -6,6 +6,7 @@ This document explains how **C++Safe** features are implemented as an extension 
 
 ## Table of Contents
 
+### Part 1: Core Features
 1. [Program Structure](#program-structure)
 2. [Statements](#statements)
 3. [Expressions](#expressions)
@@ -16,18 +17,27 @@ This document explains how **C++Safe** features are implemented as an extension 
 8. [Slicing and Ranges](#slicing-and-ranges)
 9. [Inline Testing](#inline-testing)
 
+### Part 2: Advanced Features
+10. [Pattern Matching](#pattern-matching)
+11. [Error Handling](#error-handling)
+12. [Named Parameters](#named-parameters)
+13. [Coroutines](#coroutines)
+14. [Modules](#modules)
+
 ---
 
-## Program Structure
+## Part 1: Core Features
 
-### Implementation
+### Program Structure
+
+#### Implementation
 - Simplifies function declarations using macros while ensuring compatibility with C++ standards.
 
 ```cpp
 #define func auto
 ```
 
-### Example
+#### Example
 ```cpp
 #include <iostream>
 
@@ -37,15 +47,15 @@ func main() -> int {
 }
 ```
 
-### How It Works
+#### How It Works
 - The `func` macro replaces the `auto` keyword for concise function declarations.
 - The `main` function retains its standard signature, ensuring compatibility with the C++ standard.
 
 ---
 
-## Statements
+### Statements
 
-### Implementation
+#### Implementation
 - Provides concise macros for variable and constant declarations.
 
 ```cpp
@@ -53,21 +63,21 @@ func main() -> int {
 #define const_ const auto
 ```
 
-### Example
+#### Example
 ```cpp
 let x = 42;
 const_ pi = 3.14159;
 ```
 
-### How It Works
+#### How It Works
 - The `let` macro maps to `auto`, leveraging C++'s type inference capabilities.
 - The `const_` macro ensures immutability while retaining the benefits of type inference.
 
 ---
 
-## Expressions
+### Expressions
 
-### Implementation
+#### Implementation
 - Introduces a macro for simplified output with variadic arguments.
 
 ```cpp
@@ -82,20 +92,20 @@ std::string format(Args... args) {
 }
 ```
 
-### Example
+#### Example
 ```cpp
 print("Sum:", 3 + 5);
 ```
 
-### How It Works
+#### How It Works
 - The `print` macro uses a helper function (`format`) to concatenate variadic arguments.
 - Outputs are sent to `std::cout` and automatically terminated with a newline.
 
 ---
 
-## Functions
+### Functions
 
-### Implementation
+#### Implementation
 - Simplifies function declarations and returns using macros.
 
 ```cpp
@@ -103,29 +113,29 @@ print("Sum:", 3 + 5);
 #define ret return
 ```
 
-### Example
+#### Example
 ```cpp
 func add(int a, int b) -> int {
     ret a + b;
 }
 ```
 
-### How It Works
+#### How It Works
 - The `func` macro provides a cleaner and modern syntax for declaring functions.
 - The `ret` macro is shorthand for the `return` keyword, improving code readability.
 
 ---
 
-## Control Flow
+### Control Flow
 
-### Implementation
+#### Implementation
 - Simplifies loops with macros for range-based iteration.
 
 ```cpp
 #define for_in(var, range) for (auto var : range)
 ```
 
-### Example
+#### Example
 ```cpp
 std::vector<int> nums = {1, 2, 3, 4, 5};
 for_in(num, nums) {
@@ -133,35 +143,35 @@ for_in(num, nums) {
 }
 ```
 
-### How It Works
+#### How It Works
 - The `for_in` macro simplifies iterating over STL containers, reducing boilerplate code.
 
 ---
 
-## Memory Safety
+### Memory Safety
 
-### Implementation
+#### Implementation
 - Uses smart pointers with a simplified macro to ensure automatic memory management.
 
 ```cpp
 #define safe(type, ...) std::make_shared<type>(__VA_ARGS__)
 ```
 
-### Example
+#### Example
 ```cpp
 auto ptr = safe(int, 42);
 auto arr = safe(std::vector<int>, std::initializer_list<int>{1, 2, 3});
 ```
 
-### How It Works
+#### How It Works
 - The `safe` macro wraps `std::make_shared` for creating `std::shared_ptr` instances.
 - Memory is automatically managed, reducing the risk of memory leaks or dangling pointers.
 
 ---
 
-## Concurrency
+### Concurrency
 
-### Implementation
+#### Implementation
 - Provides macros to simplify asynchronous tasks and threading.
 
 ```cpp
@@ -169,7 +179,7 @@ auto arr = safe(std::vector<int>, std::initializer_list<int>{1, 2, 3});
 #define spawn(block) std::thread([]() { block; })
 ```
 
-### Example
+#### Example
 ```cpp
 auto result = async_task(std::launch::async, fetchData);
 spawn({
@@ -177,15 +187,15 @@ spawn({
 }).join();
 ```
 
-### How It Works
+#### How It Works
 - The `async_task` macro maps to `std::async` for running tasks asynchronously.
 - The `spawn` macro simplifies thread creation and execution, improving readability.
 
 ---
 
-## Slicing and Ranges
+### Slicing and Ranges
 
-### Implementation
+#### Implementation
 - Adds slicing and custom range macros for iteration.
 
 ```cpp
@@ -202,7 +212,7 @@ std::vector<T> slice(const std::vector<T>& vec, size_t start, size_t end) {
     }(start, end, step)
 ```
 
-### Example
+#### Example
 ```cpp
 std::vector<int> nums = {1, 2, 3, 4, 5};
 auto subArray = slice(nums, 1, 4);
@@ -212,15 +222,15 @@ for (auto num : range(0, 10, 2)) {
 }
 ```
 
-### How It Works
+#### How It Works
 - The `slice` function extracts a subarray from a vector.
 - The `range` macro generates a sequence of integers for iteration.
 
 ---
 
-## Inline Testing
+### Inline Testing
 
-### Implementation
+#### Implementation
 - Simplifies testing with macros for test descriptions and assertions.
 
 ```cpp
@@ -236,7 +246,7 @@ for (auto num : range(0, 10, 2)) {
     }
 ```
 
-### Example
+#### Example
 ```cpp
 test("Basic math works", {
     assert(1 + 1 == 2);
@@ -247,6 +257,100 @@ test("String comparison", {
 });
 ```
 
-### How It Works
+#### How It Works
 - The `test` macro outputs the test description and runs the associated code block.
 - The `assert` macro checks conditions and outputs a success or failure message.
+
+---
+
+## Part 2: Advanced Features
+
+### Pattern Matching
+
+#### Implementation
+- Implements concise and type-safe pattern matching using `std::variant` and lambdas.
+
+```cpp
+template <typename Variant, typename... Cases>
+void match(const Variant& value, Cases... cases) {
+    std::visit([&](auto&& matched) {
+        ((cases(matched)), ...);
+    }, value);
+}
+```
+
+#### Example
+```cpp
+std::variant<int, std::string> value = 42;
+
+match(value,
+    [](int v) { if (v == 42) std::cout << "Matched 42\n"; },
+    [](const std::string& s) { std::cout << "Matched a string: " << s << "\n"; }
+);
+```
+
+#### How It Works
+- `std::visit` evaluates the `std::variant` and invokes the matching case.
+- Each case is a lambda function, simplifying type-safe branching logic.
+
+---
+
+### Error Handling
+
+#### Implementation
+- Encapsulates success and error states using `std::variant`.
+
+```cpp
+template <typename T, typename E>
+using Result = std::variant<T, E>;
+```
+
+#### Example
+```cpp
+Result<int, std::string> riskyOperation(bool success) {
+    return success ? Result<int, std::string>(42) : "Error occurred";
+}
+```
+
+#### How It Works
+- `Result` is a type-safe union for combining success and error states.
+- Eliminates exceptions while maintaining clean error propagation.
+
+---
+
+### Named Parameters
+
+#### Implementation
+- Named parameters use initializer lists and struct-based APIs.
+
+```cpp
+#define named_param(name, value) .name = value
+
+struct Config { int height; int width; std::string color; };
+```
+
+#### Example
+```cpp
+Config cfg = { named_param(height, 100), named_param(width, 200), named_param(color, "blue") };
+```
+
+---
+
+### Coroutines
+
+#### Implementation
+- Implements generator-like behavior using coroutines.
+
+```cpp
+template <typename T>
+struct Generator { /* Implementation */ };
+```
+
+---
+
+### Modules
+
+#### Implementation
+- Uses `export` and `import` keywords to implement modules.
+
+---
