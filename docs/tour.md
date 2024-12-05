@@ -4,7 +4,7 @@ Welcome to the **Tour of C++Safe**, where we explore the key features and enhanc
 
 ---
 
-# Part 1: Simple Features (Implemented)
+# Part 1: Core Features (Implemented)
 ## Table of Contents
 
 1. [Program Structure](#program-structure)  
