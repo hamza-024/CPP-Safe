@@ -1,6 +1,6 @@
-# Examples for C++Safe
+# Part 1 Examples for C++Safe Core Features
 
-This folder contains example programs demonstrating various features of **C++Safe**. Each example focuses on a specific feature, showcasing the code, expected output, and how it improves upon standard C++.
+This folder contains example programs demonstrating core features of **C++Safe** from Part 1. Part 2 features have not been implemented yet. Part 2 feature implementation details can be found in [this file](docs/implementation.md). Each example focuses on a specific feature, showcasing the code, expected output, and how it improves upon standard C++.
 
 ---
 
